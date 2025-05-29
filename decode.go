@@ -849,11 +849,15 @@ func (d *decodeState) object(v reflect.Value) error {
 // depending on the setting of d.useNumber.
 func (d *decodeState) convertNumber(s string) (any, error) {
 	if d.useNumber {
+		// Optionally sanitize Number as string here too
+		if s == "NaN" || s == "+Inf" || s == "-Inf" {
+			return Number("0"), nil
+		}
 		return Number(s), nil
 	}
 	f, err := strconv.ParseFloat(s, 64)
-	if err != nil {
-		return nil, &UnmarshalTypeError{Value: "number " + s, Type: reflect.TypeOf(0.0), Offset: int64(d.off)}
+	if err != nil || math.IsNaN(f) || math.IsInf(f, 0) {
+		return float64(0.0), nil
 	}
 	return f, nil
 }
