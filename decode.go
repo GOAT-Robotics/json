@@ -8,6 +8,7 @@
 package json
 
 import (
+	"math"
 	"encoding"
 	"encoding/base64"
 	"fmt"
