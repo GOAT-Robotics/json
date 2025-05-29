@@ -580,9 +580,9 @@ func (bits floatEncoder) encode(e *encodeState, v reflect.Value, opts encOpts) {
 			e.WriteByte('"')
 		}
 		if math.IsInf(f, 1) {
-			e.WriteString("")
+			e.WriteString("0")
 		} else {
-			e.WriteString("")
+			e.WriteString("0")
 		}
 		if opts.quoted {
 			e.WriteByte('"')
@@ -592,7 +592,7 @@ func (bits floatEncoder) encode(e *encodeState, v reflect.Value, opts encOpts) {
 		if opts.quoted {
 			e.WriteByte('"')
 		}
-		e.WriteString("")
+		e.WriteString("0")
 		if opts.quoted {
 			e.WriteByte('"')
 		}
